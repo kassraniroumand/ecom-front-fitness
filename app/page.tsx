@@ -23,9 +23,9 @@ export default function HomePage() {
         <LatestCarousel />
         <ElegantlyDesigned />
         <AwardsCarousel />
-        <EcosystemBanner />
+        {/*<EcosystemBanner />*/}
         <Stories />
-        <BusinessCta />
+        {/*<BusinessCta />*/}
       </main>
       <Footer />
     </div>

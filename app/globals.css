@@ -100,7 +100,7 @@
 
 @layer components {
   .tg-container {
-    @apply max-w-[1400px] mx-auto px-4 md:px-8;
+    @apply px-0;
   }
   .tg-btn-yellow {
     @apply inline-flex items-center gap-2 bg-accent text-accent-foreground font-bold uppercase tracking-wide text-sm px-6 py-3 rounded-sm hover:brightness-95 transition;

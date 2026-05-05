@@ -15,7 +15,7 @@ const stories = [
 ];
 
 export const Stories = () => (
-  <section className="py-8 md:py-10 bg-secondary">
+  <section className="py-8 md:py-10 bg-secondary sm:px-4">
     <div className="tg-container">
       <SectionHeading
         eyebrow="داستان‌ها"

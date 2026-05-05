@@ -22,7 +22,7 @@ export const SectionHeading = ({
 
   return (
     <div
-      className={`mb-6 md:mb-8 flex-col gap-4 text-center flex items-start justify-start ${className}`}
+      className={`mb-6 md:mb-8 flex-col gap-4 text-start flex items-start justify-start ${className}`}
     >
       {eyebrow && (
         <div className="flex items-center gap-3">
@@ -37,7 +37,7 @@ export const SectionHeading = ({
         </div>
       )}
       <h2
-        className={`text-3xl md:text-5xl leading-[0.95] max-w-3xl font-bold ${
+        className={`text-2xl md:text-5xl leading-[0.95] max-w-3xl font-bold ${
           isDark ? "text-background" : "text-foreground"
         }`}
       >

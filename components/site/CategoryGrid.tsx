@@ -29,7 +29,7 @@ export const CategoryGrid = () => {
   const current = items[active];
 
   return (
-    <section className="bg-background py-8 md:py-10">
+    <section className="bg-background py-8 md:py-10 sm:px-4">
       <div className="tg-container">
         <SectionHeading
           eyebrow="خرید بر اساس دسته‌بندی — ۴ رشته"

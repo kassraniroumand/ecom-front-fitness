@@ -58,7 +58,7 @@ const Card = ({ it }: { it: (typeof items)[number] }) => (
 );
 
 export const ShopByCategory = () => (
-  <section className="py-8 md:py-10 bg-background">
+  <section className="py-8 px-2 sm:px-4 md:py-10 bg-background">
     <div className="tg-container">
       <SectionHeading
         align="center"

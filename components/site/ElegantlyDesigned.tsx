@@ -35,7 +35,7 @@ export const ElegantlyDesigned = () => {
   const filtered = active === "all" ? products : products.filter((p) => p.category === active);
 
   return (
-    <section className="py-8 md:py-10 bg-background">
+    <section className="py-8 md:py-10 bg-background sm:px-4">
       <div className="tg-container">
         <SectionHeading
           eyebrow="کاتالوگ محصولات"

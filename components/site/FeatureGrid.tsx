@@ -28,12 +28,7 @@ const items: Item[] = [
     title: "رکاب‌زنی استودیویی",
     subtitle: "با کلاس‌های زنده تمرین کنید.",
     img: "/assets/bike.jpg",
-  },
-  {
-    title: "قدرت ناب",
-    subtitle: "مجموعه‌ی کامل تجهیزات قدرتی.",
-    img: "/assets/strength.jpg",
-  },
+  }
 ];
 
 const Card = ({ it }: { it: Item }) => (
@@ -67,7 +62,7 @@ const Card = ({ it }: { it: Item }) => (
 );
 
 export const FeatureGrid = () => (
-  <section className="py-8 md:py-12 bg-background">
+  <section className="py-8 md:py-12 bg-background sm:px-4">
     <div className="tg-container">
       <SectionHeading
         eyebrow="ویژگی‌ها"
@@ -76,8 +71,8 @@ export const FeatureGrid = () => (
       />
     </div>
 
-    <div className="hidden md:block tg-container">
-      <div className="grid grid-cols-2 gap-4 md:gap-6">
+    <div className="hidden md:block">
+      <div className="grid grid-cols-3 gap-4 md:gap-6">
         {items.map((it) => (
           <Card key={it.title} it={it} />
         ))}

@@ -49,7 +49,7 @@ export const AwardsCarousel = () => {
   const items = catalogue[active];
 
   return (
-    <section className="bg-foreground text-background py-8 md:py-10 overflow-hidden">
+    <section className="bg-foreground text-background py-8 md:py-5 px-2 m-4 overflow-hidden ">
       <div className="tg-container">
         <div className="grid lg:grid-cols-2 gap-10 items-start mb-14">
           <SectionHeading
@@ -58,21 +58,6 @@ export const AwardsCarousel = () => {
             title={<>بیش از ۵۰ محصول برنده<br />جایزه از سال ۲۰۰۴</>}
             className="mb-0"
           />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {awards.map((a) => (
-              <div
-                key={a.name}
-                className="border border-background/15 rounded-none px-4 py-5 flex flex-col items-center justify-center text-center min-h-[120px]"
-              >
-                <div className={`w-10 h-10 ${a.color} rounded-sm flex items-center justify-center mb-3 text-[10px] font-black text-background`}>
-                  {a.letter}
-                </div>
-                <p className="text-xs text-background/85">
-                  <span className="font-bold">{a.count}</span> {a.name}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
 
         <div className="flex items-center justify-center gap-8 md:gap-12 mb-10">

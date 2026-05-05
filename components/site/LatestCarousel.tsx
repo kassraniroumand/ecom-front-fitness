@@ -143,7 +143,7 @@ const ProductCard = ({ c }: { c: Card }) => {
 };
 
 export const LatestCarousel = () => (
-  <section className="py-8 md:py-10 bg-secondary">
+  <section className="py-8 md:py-10 bg-secondary sm:px-4">
     <div className="tg-container">
       <SectionHeading
         eyebrow="تازه‌واردها"
