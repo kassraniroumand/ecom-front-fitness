@@ -2,6 +2,7 @@
 
 import { Search, ShoppingCart, Phone, ArrowUpRight, Menu } from "lucide-react";
 import { useState } from "react";
+import posthog from "posthog-js";
 
 const nav = ["فروشگاه", "تندرستی", "طراحی", "داستان‌ها", "جامعه"];
 
@@ -33,8 +34,8 @@ export const Header = () => {
             <a href="tel:08003162496" className="hidden md:inline-flex items-center gap-2 text-sm font-semibold">
               <Phone className="w-4 h-4" /> ۰۸۰۰۳۱۶۲۴۹۶
             </a>
-            <button aria-label="Search"><Search className="w-5 h-5" /></button>
-            <button aria-label="Cart"><ShoppingCart className="w-5 h-5" /></button>
+            <button aria-label="Search" onClick={() => posthog.capture("search_clicked")}><Search className="w-5 h-5" /></button>
+            <button aria-label="Cart" onClick={() => posthog.capture("cart_icon_clicked")}><ShoppingCart className="w-5 h-5" /></button>
             <button className="lg:hidden" aria-label="Menu" onClick={() => setOpen(!open)}>
               <Menu className="w-5 h-5" />
             </button>

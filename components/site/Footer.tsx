@@ -1,4 +1,7 @@
+"use client";
+
 import { ChevronLeft, MapPin } from "lucide-react";
+import posthog from "posthog-js";
 
 const ctas = [
   { title: "به جامعه بپیوندید", cta: "عضو شوید", icon: "chevron" as const },
@@ -59,7 +62,10 @@ export const Footer = () => (
               آخرین اخبار و رویدادها را دریافت کنید تا الهام بگیرید و سریع‌تر به اهداف خود برسید.
             </p>
           </div>
-          <button className="self-start inline-flex items-center gap-2 border border-background/40 rounded px-4 py-2.5 text-xs font-bold uppercase tracking-[0.18em] hover:bg-background hover:text-foreground transition">
+          <button
+            onClick={() => posthog.capture("newsletter_subscribe_clicked")}
+            className="self-start inline-flex items-center gap-2 border border-background/40 rounded px-4 py-2.5 text-xs font-bold uppercase tracking-[0.18em] hover:bg-background hover:text-foreground transition"
+          >
             <ChevronLeft className="w-3.5 h-3.5" />
             اکنون مشترک شوید
           </button>
@@ -131,12 +137,14 @@ export const Footer = () => (
         </span>
         <a
           href="#"
+          onClick={() => posthog.capture("app_download_clicked", { store: "google_play" })}
           className="inline-flex items-center gap-2 bg-background text-foreground rounded-md px-3 py-2 text-[10px] font-bold uppercase"
         >
           ▶ Google Play
         </a>
         <a
           href="#"
+          onClick={() => posthog.capture("app_download_clicked", { store: "app_store" })}
           className="inline-flex items-center gap-2 bg-background text-foreground rounded-md px-3 py-2 text-[10px] font-bold uppercase"
         >
            App Store

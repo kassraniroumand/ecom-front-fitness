@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Navigation } from "swiper/modules";
 import { ChevronRight } from "lucide-react";
+import posthog from "posthog-js";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -77,7 +78,17 @@ export const HeroSwiper = () => (
                 {s.copy}
               </p>
               <div>
-                <a href="#shop" className="tg-btn-yellow mt-6">
+                <a
+                  href="#shop"
+                  onClick={() =>
+                    posthog.capture("hero_cta_clicked", {
+                      slide_index: i,
+                      slide_eyebrow: s.eyebrow,
+                      cta_label: s.cta,
+                    })
+                  }
+                  className="tg-btn-yellow mt-6"
+                >
                   {s.cta} <ChevronRight className="w-4 h-4 rotate-180" />
                 </a>
               </div>

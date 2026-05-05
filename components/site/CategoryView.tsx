@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import posthog from "posthog-js";
 import { ArrowUpRight, ChevronLeft, ChevronDown, Filter, ArrowDownUp, Headphones } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -77,6 +78,13 @@ const ProductCard = ({ p }: { p: CategoryProduct }) => {
           <div className="mt-5 grid grid-cols-2 border-t border-border">
             <Link
               href={`/product/${p.id}`}
+              onClick={() =>
+                posthog.capture("product_card_discover_clicked", {
+                  product_id: p.id,
+                  product_name: p.name,
+                  price: p.price,
+                })
+              }
               className="flex items-center justify-center gap-2 py-3 text-[10px] font-bold tracking-[0.2em] text-foreground border-l border-border transition-colors hover:bg-secondary"
             >
               کشف کنید
@@ -84,6 +92,13 @@ const ProductCard = ({ p }: { p: CategoryProduct }) => {
             </Link>
             <Link
               href={`/product/${p.id}`}
+              onClick={() =>
+                posthog.capture("product_card_configure_clicked", {
+                  product_id: p.id,
+                  product_name: p.name,
+                  price: p.price,
+                })
+              }
               className="flex items-center justify-center py-3 text-[10px] font-bold tracking-[0.2em] bg-foreground text-background transition-colors hover:bg-accent hover:text-accent-foreground"
             >
               پیکربندی
@@ -98,6 +113,24 @@ const ProductCard = ({ p }: { p: CategoryProduct }) => {
 export const CategoryView = ({ category }: { category: Category }) => {
   const [activeFilter, setActiveFilter] = useState(category.filters[0] ?? "همه");
   const [sort, setSort] = useState(sortOptions[0]);
+
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter);
+    posthog.capture("category_filter_changed", {
+      category: category.crumb,
+      category_slug: category.slug,
+      filter,
+    });
+  };
+
+  const handleSortChange = (value: string) => {
+    setSort(value);
+    posthog.capture("category_sort_changed", {
+      category: category.crumb,
+      category_slug: category.slug,
+      sort: value,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
@@ -210,7 +243,7 @@ export const CategoryView = ({ category }: { category: Category }) => {
                     <button
                       key={c}
                       type="button"
-                      onClick={() => setActiveFilter(c)}
+                      onClick={() => handleFilterChange(c)}
                       className={`group relative inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] px-3 py-2 whitespace-nowrap transition-colors ${
                         active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                       }`}
@@ -241,7 +274,7 @@ export const CategoryView = ({ category }: { category: Category }) => {
                 <div className="relative">
                   <select
                     value={sort}
-                    onChange={(e) => setSort(e.target.value)}
+                    onChange={(e) => handleSortChange(e.target.value)}
                     className="appearance-none bg-transparent pl-5 text-[11px] font-bold tracking-[0.18em] focus:outline-none cursor-pointer border-b border-foreground pb-0.5"
                   >
                     {sortOptions.map((o) => (
