@@ -1,0 +1,297 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { ArrowUpRight, ChevronLeft, ChevronDown, Filter, ArrowDownUp, Headphones } from "lucide-react";
+import { Header } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
+import { AdaptiveImage } from "@/components/site/AdaptiveImage";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import type { Category, CategoryProduct } from "@/lib/categories";
+
+const sortOptions = [
+  "پیشنهادی",
+  "قیمت: کم به زیاد",
+  "قیمت: زیاد به کم",
+  "جدیدترین",
+];
+
+const ProductCard = ({ p }: { p: CategoryProduct }) => {
+  return (
+    <article className="group relative flex flex-col bg-card text-foreground border border-border transition-all duration-500 hover:border-foreground hover:-translate-y-1">
+      <div className="relative aspect-square overflow-hidden bg-secondary">
+        <AdaptiveImage
+          src={p.img}
+          alt={p.name}
+          variant="light"
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 90vw"
+          loading="lazy"
+          className="object-contain p-10 transition-transform duration-700 group-hover:scale-[1.04]"
+        />
+
+        {p.badge && (
+          <span className="absolute top-4 right-4 inline-flex items-center text-[10px] font-black tracking-[0.18em] bg-foreground text-background px-2.5 py-1">
+            {p.badge}
+          </span>
+        )}
+
+        <span
+          aria-hidden
+          className="absolute bottom-4 left-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-background text-foreground border border-border opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent"
+        >
+          <ArrowUpRight className="w-4 h-4" />
+        </span>
+      </div>
+
+      <div className="flex-1 flex flex-col p-5 md:p-6">
+        <h3 className="text-lg md:text-xl font-bold leading-tight">
+          {p.name}
+        </h3>
+
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {p.features.map((f) => (
+            <span
+              key={f}
+              className="text-[10px] font-bold tracking-[0.14em] text-foreground/75 bg-secondary px-2 py-1"
+            >
+              {f}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-auto pt-5">
+          <div className="flex items-baseline gap-2">
+            {p.priceLabel && (
+              <span className="text-[10px] font-bold tracking-[0.18em] text-muted-foreground">
+                {p.priceLabel}
+              </span>
+            )}
+            <span className="text-2xl font-bold tabular-nums">{p.price}</span>
+          </div>
+          <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+            {p.finance}
+          </p>
+
+          <div className="mt-5 grid grid-cols-2 border-t border-border">
+            <Link
+              href={`/product/${p.id}`}
+              className="flex items-center justify-center gap-2 py-3 text-[10px] font-bold tracking-[0.2em] text-foreground border-l border-border transition-colors hover:bg-secondary"
+            >
+              کشف کنید
+              <ArrowUpRight className="w-3 h-3" />
+            </Link>
+            <Link
+              href={`/product/${p.id}`}
+              className="flex items-center justify-center py-3 text-[10px] font-bold tracking-[0.2em] bg-foreground text-background transition-colors hover:bg-accent hover:text-accent-foreground"
+            >
+              پیکربندی
+            </Link>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+export const CategoryView = ({ category }: { category: Category }) => {
+  const [activeFilter, setActiveFilter] = useState(category.filters[0] ?? "همه");
+  const [sort, setSort] = useState(sortOptions[0]);
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
+      <Header />
+
+      <main className="flex-1 pt-24 md:pt-28">
+        <div className="tg-container">
+          <nav
+            aria-label="مسیر"
+            className="flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] text-muted-foreground"
+          >
+            <Link href="/" className="hover:text-foreground transition">
+              خانه
+            </Link>
+            <ChevronLeft className="w-3 h-3" />
+            <Link href="/category" className="hover:text-foreground transition">
+              همه‌ی محصولات
+            </Link>
+            <ChevronLeft className="w-3 h-3" />
+            <span className="text-foreground">{category.crumb}</span>
+          </nav>
+        </div>
+
+        <section className="tg-container pt-10 md:pt-14 pb-12 md:pb-16">
+          <div className="grid grid-cols-12 gap-8 md:gap-12 items-end">
+            <div className="col-span-12 lg:col-span-8">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="h-px w-10 bg-accent" />
+                <p className="text-[10px] font-bold tracking-[0.28em] text-muted-foreground">
+                  {category.eyebrow}
+                </p>
+              </div>
+
+              <h1 className="text-3xl md:text-5xl font-bold leading-tight max-w-3xl">
+                {category.title}
+              </h1>
+
+              <p className="mt-8 text-base md:text-lg text-foreground/75 max-w-2xl leading-relaxed">
+                {category.description}
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-6 text-sm">
+                <span className="inline-flex items-center gap-2 text-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  {category.products.length} محصول
+                </span>
+                <span className="text-muted-foreground">ارسال و نصب رایگان</span>
+                <span className="text-muted-foreground">۳ سال گارانتی</span>
+              </div>
+            </div>
+
+            <div className="col-span-12 lg:col-span-4">
+              <div className="rounded-none bg-card p-6 md:p-7 ring-1 ring-border flex items-start gap-4">
+                <div className="relative shrink-0">
+                  <div className="relative w-14 h-14 rounded-full overflow-hidden ring-1 ring-border">
+                    <Image
+                      src="/assets/treadmill.jpg"
+                      alt="کارشناس"
+                      fill
+                      sizes="56px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="absolute -bottom-1 -left-1 w-6 h-6 rounded-full bg-accent text-accent-foreground inline-flex items-center justify-center">
+                    <Headphones className="w-3 h-3" />
+                  </span>
+                </div>
+                <div className="min-w-0">
+                  <p className="tg-card-eyebrow text-muted-foreground">
+                    کمک می‌خواهید؟
+                  </p>
+                  <h3 className="tg-card-title mt-1">
+                    با کارشناس تمرین صحبت کنید.
+                  </h3>
+                  <a
+                    href="#"
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground border-b border-foreground pb-0.5"
+                  >
+                    تماس با کارشناس
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-xl border-y border-border">
+          <div className="tg-container">
+            <div className="flex items-stretch gap-0 divide-x divide-border">
+              <div className="hidden md:flex items-center gap-3 pl-6 py-5 shrink-0">
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-background">
+                  <Filter className="w-3.5 h-3.5" />
+                </span>
+                <div className="leading-tight">
+                  <p className="text-[9px] font-bold tracking-[0.24em] text-muted-foreground">
+                    فیلتر
+                  </p>
+                  <p className="text-sm font-bold tabular-nums">
+                    {category.products.length}{" "}
+                    <span className="text-muted-foreground font-normal">نتیجه</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex-1 min-w-0 flex items-center gap-1.5 px-0 md:px-6 py-4 overflow-x-auto scrollbar-none">
+                {category.filters.map((c) => {
+                  const active = c === activeFilter;
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => setActiveFilter(c)}
+                      className={`group relative inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] px-3 py-2 whitespace-nowrap transition-colors ${
+                        active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <span
+                        aria-hidden
+                        className={`h-1.5 w-1.5 rounded-full transition-all ${
+                          active ? "bg-accent scale-100" : "bg-border scale-75 group-hover:bg-foreground"
+                        }`}
+                      />
+                      {c}
+                      {active && (
+                        <span
+                          aria-hidden
+                          className="absolute left-3 right-3 -bottom-px h-px bg-foreground"
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center gap-3 pr-6 py-5 shrink-0">
+                <ArrowDownUp className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="hidden sm:inline text-[9px] font-bold tracking-[0.24em] text-muted-foreground">
+                  مرتب‌سازی
+                </span>
+                <div className="relative">
+                  <select
+                    value={sort}
+                    onChange={(e) => setSort(e.target.value)}
+                    className="appearance-none bg-transparent pl-5 text-[11px] font-bold tracking-[0.18em] focus:outline-none cursor-pointer border-b border-foreground pb-0.5"
+                  >
+                    {sortOptions.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="w-3 h-3 absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section className="tg-container py-14 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {category.products.map((p) => (
+              <ProductCard key={p.id} p={p} />
+            ))}
+          </div>
+        </section>
+
+        <section className="bg-background py-20 md:py-28">
+          <div className="tg-container grid grid-cols-12 gap-8 md:gap-12 items-end">
+            <div className="col-span-12 md:col-span-7">
+              <SectionHeading
+                eyebrow={category.bottomEyebrow}
+                title={
+                  <>
+                    {category.bottomTitleLead}{" "}
+                    <span className="italic font-light normal-case text-muted-foreground">
+                      {category.bottomTitleAccent}
+                    </span>
+                    {category.bottomTitleTail}
+                  </>
+                }
+                className="mb-0"
+              />
+            </div>
+            <div className="col-span-12 md:col-span-5 md:text-left">
+              <a href="#" className="tg-btn-outline">
+                بازدید از آزمایشگاه طراحی <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};

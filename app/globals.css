@@ -1,0 +1,163 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-vazirmatn), system-ui, sans-serif;
+  --font-mono: var(--font-vazirmatn), system-ui, sans-serif;
+  --font-heading: var(--font-vazirmatn), system-ui, sans-serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  --background: 66 9% 84%;
+  --foreground: 0 0% 8%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 8%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 8%;
+
+  --primary: 0 0% 8%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 66 9% 84%;
+  --secondary-foreground: 0 0% 8%;
+
+  --muted: 66 9% 84%;
+  --muted-foreground: 0 0% 40%;
+
+  --accent: 53 100% 50%;
+  --accent-foreground: 0 0% 8%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 0 0% 8%;
+
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    background-color: #dadbd4;
+    overflow-x: clip;
+  }
+  html[dir="rtl"] body {
+    text-align: right;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: #dadbd4;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+}
+
+@layer components {
+  .tg-container {
+    @apply max-w-[1400px] mx-auto px-4 md:px-8;
+  }
+  .tg-btn-yellow {
+    @apply inline-flex items-center gap-2 bg-accent text-accent-foreground font-bold uppercase tracking-wide text-sm px-6 py-3 rounded-sm hover:brightness-95 transition;
+  }
+  .tg-btn-outline {
+    @apply inline-flex items-center gap-2 border border-foreground text-foreground font-bold uppercase tracking-wide text-sm px-6 py-3 rounded-sm hover:bg-foreground hover:text-background transition;
+  }
+  .tg-btn-white {
+    @apply inline-flex items-center gap-2 bg-background text-foreground font-bold uppercase tracking-wide text-sm px-6 py-3 rounded-sm hover:bg-accent transition;
+  }
+
+  .tg-card-eyebrow {
+    @apply text-[11px] font-bold uppercase tracking-[0.2em];
+  }
+  .tg-card-title {
+    @apply text-xl md:text-2xl font-bold leading-snug normal-case tracking-normal;
+  }
+  .tg-card-desc {
+    @apply text-sm leading-relaxed text-muted-foreground;
+  }
+
+  .tg-swiper .swiper-slide { height: auto; display: flex; }
+  .tg-swiper .swiper-slide > * { width: 100%; }
+}
+
+@layer utilities {
+  .tg-hero-swiper .swiper-button-next,
+  .tg-hero-swiper .swiper-button-prev {
+    color: hsl(var(--background));
+    width: 44px;
+    height: 44px;
+  }
+  .tg-hero-swiper .swiper-button-next::after,
+  .tg-hero-swiper .swiper-button-prev::after {
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  .tg-product-swiper.swiper .swiper-button-next,
+  .tg-product-swiper.swiper .swiper-button-prev {
+    color: hsl(var(--foreground));
+    width: 40px;
+    height: 40px;
+    background: hsl(var(--background) / 0.9);
+    border: 1px solid hsl(var(--border));
+    border-radius: 9999px;
+    backdrop-filter: blur(6px);
+  }
+  .tg-product-swiper.swiper .swiper-button-next::after,
+  .tg-product-swiper.swiper .swiper-button-prev::after {
+    font-size: 14px;
+    font-weight: 900;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
