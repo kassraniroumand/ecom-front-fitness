@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -45,6 +46,18 @@ export default function RootLayout({
       <body className="font-sans">
         <Providers>{children}</Providers>
       </body>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-VYDJEY3CPP"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VYDJEY3CPP');
+        `}
+      </Script>
     </html>
   );
 }
