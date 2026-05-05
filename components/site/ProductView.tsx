@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import posthog from "posthog-js";
 import {
   ArrowUpRight,
   ChevronLeft,
@@ -39,6 +40,38 @@ export const ProductView = ({ product, category, related }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const gallery = [product.img, product.img, product.img, product.img];
+
+  useEffect(() => {
+    posthog.capture("product_viewed", {
+      product_id: product.id,
+      product_name: product.name,
+      category: category.crumb,
+      category_slug: category.slug,
+      price: product.price,
+    });
+  }, [product.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleColorSelect = (colorId: string) => {
+    setColor(colorId);
+    const selected = colorOptions.find((c) => c.id === colorId);
+    posthog.capture("product_color_selected", {
+      product_id: product.id,
+      product_name: product.name,
+      color_id: colorId,
+      color_name: selected?.name,
+    });
+  };
+
+  const handleAddToCart = () => {
+    posthog.capture("add_to_cart_clicked", {
+      product_id: product.id,
+      product_name: product.name,
+      category: category.crumb,
+      category_slug: category.slug,
+      price: product.price,
+      color: colorOptions.find((c) => c.id === color)?.name,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
@@ -182,7 +215,7 @@ export const ProductView = ({ product, category, related }: Props) => {
                       <button
                         key={c.id}
                         type="button"
-                        onClick={() => setColor(c.id)}
+                        onClick={() => handleColorSelect(c.id)}
                         aria-label={c.name}
                         className={`relative w-10 h-10 rounded-full border transition ${
                           active
@@ -199,6 +232,7 @@ export const ProductView = ({ product, category, related }: Props) => {
               <div className="mt-8">
                 <button
                   type="button"
+                  onClick={handleAddToCart}
                   className="w-full bg-accent text-accent-foreground font-bold uppercase tracking-wide text-sm px-6 py-4 hover:brightness-95 transition"
                 >
                   افزودن به سبد خرید
@@ -310,6 +344,15 @@ export const ProductView = ({ product, category, related }: Props) => {
                   <Link
                     key={r.id}
                     href={`/product/${r.id}`}
+                    onClick={() =>
+                      posthog.capture("related_product_clicked", {
+                        product_id: r.id,
+                        product_name: r.name,
+                        source_product_id: product.id,
+                        source_product_name: product.name,
+                        category: category.crumb,
+                      })
+                    }
                     className="group flex flex-col bg-card border border-border transition-all hover:border-foreground hover:-translate-y-1"
                   >
                     <div className="relative aspect-square overflow-hidden bg-secondary">
