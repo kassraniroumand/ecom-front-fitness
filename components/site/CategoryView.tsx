@@ -4,12 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import posthog from "posthog-js";
-import { ArrowUpRight, ChevronLeft, ChevronDown, Filter, ArrowDownUp, Headphones } from "lucide-react";
+import { ArrowUpRight, Headphones, ArrowUpDown, SlidersHorizontal } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { AdaptiveImage } from "@/components/site/AdaptiveImage";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { CategoryFiltersDrawer } from "@/components/site/CategoryFiltersDrawer";
+import { CategorySortDrawer } from "@/components/site/CategorySortDrawer";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import type { Category, CategoryProduct } from "@/lib/categories";
+
+const faNumber = (n: number) => n.toLocaleString("fa-IR");
 
 const sortOptions = [
   "پیشنهادی",
@@ -111,15 +123,22 @@ const ProductCard = ({ p }: { p: CategoryProduct }) => {
 };
 
 export const CategoryView = ({ category }: { category: Category }) => {
-  const [activeFilter, setActiveFilter] = useState(category.filters[0] ?? "همه");
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [sort, setSort] = useState(sortOptions[0]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [sortOpen, setSortOpen] = useState(false);
 
-  const handleFilterChange = (filter: string) => {
-    setActiveFilter(filter);
+  const visibleCount = Math.max(
+    category.products.length - selectedFilters.length,
+    0,
+  );
+
+  const handleFiltersChange = (next: string[]) => {
+    setSelectedFilters(next);
     posthog.capture("category_filter_changed", {
       category: category.crumb,
       category_slug: category.slug,
-      filter,
+      filters: next,
     });
   };
 
@@ -136,22 +155,29 @@ export const CategoryView = ({ category }: { category: Category }) => {
     <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
       <Header />
 
-      <main className="flex-1 pt-24 md:pt-28">
+      <main className="flex-1 pt-28 md:pt-36 px-4">
         <div className="tg-container">
-          <nav
-            aria-label="مسیر"
-            className="flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] text-muted-foreground"
-          >
-            <Link href="/" className="hover:text-foreground transition">
-              خانه
-            </Link>
-            <ChevronLeft className="w-3 h-3" />
-            <Link href="/category" className="hover:text-foreground transition">
-              همه‌ی محصولات
-            </Link>
-            <ChevronLeft className="w-3 h-3" />
-            <span className="text-foreground">{category.crumb}</span>
-          </nav>
+          <Breadcrumb>
+            <BreadcrumbList className="text-sm md:text-base font-semibold tracking-tight gap-2 md:gap-3">
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">خانه</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="[&>svg]:size-4" />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/category">همه‌ی محصولات</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="[&>svg]:size-4" />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="font-bold">
+                  {category.crumb}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
 
         <section className="tg-container pt-10 md:pt-14 pb-12 md:pb-16">
@@ -218,75 +244,36 @@ export const CategoryView = ({ category }: { category: Category }) => {
           </div>
         </section>
 
-        <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-xl border-y border-border">
-          <div className="tg-container">
-            <div className="flex items-stretch gap-0 divide-x divide-border">
-              <div className="hidden md:flex items-center gap-3 pl-6 py-5 shrink-0">
-                <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-background">
-                  <Filter className="w-3.5 h-3.5" />
-                </span>
-                <div className="leading-tight">
-                  <p className="text-[9px] font-bold tracking-[0.24em] text-muted-foreground">
-                    فیلتر
-                  </p>
-                  <p className="text-sm font-bold tabular-nums">
-                    {category.products.length}{" "}
-                    <span className="text-muted-foreground font-normal">نتیجه</span>
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex-1 min-w-0 flex items-center gap-1.5 px-0 md:px-6 py-4 overflow-x-auto scrollbar-none">
-                {category.filters.map((c) => {
-                  const active = c === activeFilter;
-                  return (
-                    <button
-                      key={c}
-                      type="button"
-                      onClick={() => handleFilterChange(c)}
-                      className={`group relative inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] px-3 py-2 whitespace-nowrap transition-colors ${
-                        active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <span
-                        aria-hidden
-                        className={`h-1.5 w-1.5 rounded-full transition-all ${
-                          active ? "bg-accent scale-100" : "bg-border scale-75 group-hover:bg-foreground"
-                        }`}
-                      />
-                      {c}
-                      {active && (
-                        <span
-                          aria-hidden
-                          className="absolute left-3 right-3 -bottom-px h-px bg-foreground"
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="flex items-center gap-3 pr-6 py-5 shrink-0">
-                <ArrowDownUp className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="hidden sm:inline text-[9px] font-bold tracking-[0.24em] text-muted-foreground">
-                  مرتب‌سازی
-                </span>
-                <div className="relative">
-                  <select
-                    value={sort}
-                    onChange={(e) => handleSortChange(e.target.value)}
-                    className="appearance-none bg-transparent pl-5 text-[11px] font-bold tracking-[0.18em] focus:outline-none cursor-pointer border-b border-foreground pb-0.5"
-                  >
-                    {sortOptions.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="w-3 h-3 absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
-              </div>
-            </div>
+        <div className="sticky top-0 z-30 bg-background border-y border-foreground/15">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-3 items-center px-4 py-4 md:px-10 md:py-5">
+            <button
+              type="button"
+              onClick={() => setSortOpen(true)}
+              className="flex items-center gap-2 justify-self-start text-sm font-bold tracking-tight"
+            >
+              <ArrowUpDown className="h-4 w-4" strokeWidth={2} />
+              <span className="underline underline-offset-4 decoration-foreground/40">
+                مرتب‌سازی: {sort}
+              </span>
+            </button>
+            <span className="tg-card-eyebrow justify-self-center text-muted-foreground">
+              {faNumber(visibleCount)} محصول
+            </span>
+            <button
+              type="button"
+              onClick={() => setFiltersOpen(true)}
+              className="flex items-center gap-2 justify-self-end text-sm font-bold tracking-tight"
+            >
+              <SlidersHorizontal className="h-4 w-4" strokeWidth={2} />
+              <span className="underline underline-offset-4 decoration-foreground/40">
+                فیلتر
+                {selectedFilters.length > 0 && (
+                  <span className="ms-1 text-accent-foreground bg-accent px-1.5 py-px rounded-sm text-[10px]">
+                    {faNumber(selectedFilters.length)}
+                  </span>
+                )}
+              </span>
+            </button>
           </div>
         </div>
 
@@ -325,6 +312,22 @@ export const CategoryView = ({ category }: { category: Category }) => {
       </main>
 
       <Footer />
+
+      <CategorySortDrawer
+        open={sortOpen}
+        onOpenChange={setSortOpen}
+        options={sortOptions}
+        value={sort}
+        onValueChange={handleSortChange}
+      />
+      <CategoryFiltersDrawer
+        open={filtersOpen}
+        onOpenChange={setFiltersOpen}
+        options={category.filters}
+        selected={selectedFilters}
+        onSelectedChange={handleFiltersChange}
+        visibleCount={visibleCount}
+      />
     </div>
   );
 };
