@@ -161,7 +161,7 @@ export const CategoryView = ({ category }: { category: Category }) => {
             <BreadcrumbList className="text-sm md:text-base font-semibold tracking-tight gap-2 md:gap-3">
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/">خانه</Link>
+                  <Link href="/"> خانه</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="[&>svg]:size-4" />
