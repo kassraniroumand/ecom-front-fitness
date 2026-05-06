@@ -33,7 +33,7 @@ const sortOptions = [
 const ProductCard = ({ p }: { p: CategoryProduct }) => {
   return (
     <article className="group relative flex flex-col bg-card text-foreground border border-border transition-all duration-500 hover:border-foreground hover:-translate-y-1">
-      <div className="relative aspect-square overflow-hidden bg-secondary">
+      <div className="relative aspect-square overflow-hidden bg-card">
         <AdaptiveImage
           src={p.img}
           alt={p.name}
@@ -58,8 +58,8 @@ const ProductCard = ({ p }: { p: CategoryProduct }) => {
         </span>
       </div>
 
-      <div className="flex-1 flex flex-col p-5 md:p-6">
-        <h3 className="text-lg md:text-xl font-bold leading-tight">
+      <div className="flex-1 flex flex-col p-5 md:p-6 min-w-0">
+        <h3 className="text-lg md:text-xl font-bold leading-tight break-words">
           {p.name}
         </h3>
 
@@ -155,8 +155,8 @@ export const CategoryView = ({ category }: { category: Category }) => {
     <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
       <Header />
 
-      <main className="flex-1 pt-28 md:pt-36 px-4">
-        <div className="tg-container">
+      <main className="flex-1 pt-28 md:pt-36 px-4 min-w-0">
+        <div className="tg-container min-w-0">
           <Breadcrumb>
             <BreadcrumbList className="text-sm md:text-base font-semibold tracking-tight gap-2 md:gap-3">
               <BreadcrumbItem>
@@ -180,21 +180,21 @@ export const CategoryView = ({ category }: { category: Category }) => {
           </Breadcrumb>
         </div>
 
-        <section className="tg-container pt-10 md:pt-14 pb-12 md:pb-16">
-          <div className="grid grid-cols-12 gap-8 md:gap-12 items-end">
-            <div className="col-span-12 lg:col-span-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-10 bg-accent" />
-                <p className="text-[10px] font-bold tracking-[0.28em] text-muted-foreground">
+        <section className="tg-container pt-10 md:pt-14 pb-12 md:pb-16 min-w-0">
+          <div className="grid grid-cols-12 gap-8 md:gap-12 items-end min-w-0">
+            <div className="col-span-12 lg:col-span-8 min-w-0">
+              <div className="flex flex-wrap items-center gap-3 mb-6 max-w-full">
+                <span className="h-px w-10 bg-accent shrink-0" />
+                <p className="text-[10px] font-bold tracking-[0.28em] text-muted-foreground min-w-0 break-words">
                   {category.eyebrow}
                 </p>
               </div>
 
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight max-w-3xl">
+              <h1 className="w-full max-w-full md:max-w-3xl text-3xl md:text-5xl font-bold leading-tight [overflow-wrap:anywhere] [word-break:break-word]">
                 {category.title}
               </h1>
 
-              <p className="mt-8 text-base md:text-lg text-foreground/75 max-w-2xl leading-relaxed">
+              <p className="mt-8 w-full max-w-full md:max-w-2xl text-base md:text-lg text-foreground/75 leading-relaxed [overflow-wrap:anywhere] [word-break:break-word]">
                 {category.description}
               </p>
 
@@ -208,8 +208,8 @@ export const CategoryView = ({ category }: { category: Category }) => {
               </div>
             </div>
 
-            <div className="col-span-12 lg:col-span-4">
-              <div className="rounded-none bg-card p-6 md:p-7 ring-1 ring-border flex items-start gap-4">
+            <div className="col-span-12 lg:col-span-4 min-w-0">
+              <div className="rounded-none bg-card p-6 md:p-7 ring-1 ring-border flex items-start gap-4 min-w-0">
                 <div className="relative shrink-0">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden ring-1 ring-border">
                     <Image
@@ -245,35 +245,40 @@ export const CategoryView = ({ category }: { category: Category }) => {
         </section>
 
         <div className="sticky top-0 z-30 bg-background border-y border-foreground/15">
-          <div className="mx-auto grid max-w-[1440px] grid-cols-3 items-center px-4 py-4 md:px-10 md:py-5">
-            <button
-              type="button"
-              onClick={() => setSortOpen(true)}
-              className="flex items-center gap-2 justify-self-start text-sm font-bold tracking-tight"
-            >
-              <ArrowUpDown className="h-4 w-4" strokeWidth={2} />
-              <span className="underline underline-offset-4 decoration-foreground/40">
-                مرتب‌سازی: {sort}
+          <div className="mx-auto max-w-[1440px] px-4 py-3 md:px-10 md:py-4">
+            <div className="flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => setFiltersOpen(true)}
+                className="flex items-center gap-2 min-w-0 text-sm font-bold tracking-tight"
+              >
+                <SlidersHorizontal className="h-4 w-4 shrink-0" strokeWidth={2} />
+                <span className="min-w-0 truncate underline underline-offset-4 decoration-foreground/40">
+                  فیلتر
+                  {selectedFilters.length > 0 && (
+                    <span className="ms-1 text-accent-foreground bg-accent px-1.5 py-px rounded-sm text-[10px]">
+                      {faNumber(selectedFilters.length)}
+                    </span>
+                  )}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSortOpen(true)}
+                className="flex items-center gap-2 min-w-0 text-sm font-bold tracking-tight"
+              >
+                <ArrowUpDown className="h-4 w-4 shrink-0" strokeWidth={2} />
+                <span className="min-w-0 truncate underline underline-offset-4 decoration-foreground/40">
+                  <span className="hidden sm:inline">مرتب‌سازی: </span>
+                  {sort}
+                </span>
+              </button>
+            </div>
+            <div className="mt-2 flex justify-center">
+              <span className="tg-card-eyebrow text-muted-foreground whitespace-nowrap">
+                {faNumber(visibleCount)} محصول
               </span>
-            </button>
-            <span className="tg-card-eyebrow justify-self-center text-muted-foreground">
-              {faNumber(visibleCount)} محصول
-            </span>
-            <button
-              type="button"
-              onClick={() => setFiltersOpen(true)}
-              className="flex items-center gap-2 justify-self-end text-sm font-bold tracking-tight"
-            >
-              <SlidersHorizontal className="h-4 w-4" strokeWidth={2} />
-              <span className="underline underline-offset-4 decoration-foreground/40">
-                فیلتر
-                {selectedFilters.length > 0 && (
-                  <span className="ms-1 text-accent-foreground bg-accent px-1.5 py-px rounded-sm text-[10px]">
-                    {faNumber(selectedFilters.length)}
-                  </span>
-                )}
-              </span>
-            </button>
+            </div>
           </div>
         </div>
 
@@ -285,9 +290,9 @@ export const CategoryView = ({ category }: { category: Category }) => {
           </div>
         </section>
 
-        <section className="bg-background py-20 md:py-28">
-          <div className="tg-container grid grid-cols-12 gap-8 md:gap-12 items-end">
-            <div className="col-span-12 md:col-span-7">
+        <section className="bg-background py-20 md:py-28 min-w-0">
+          <div className="tg-container grid grid-cols-12 gap-8 md:gap-12 items-end min-w-0">
+            <div className="col-span-12 md:col-span-7 min-w-0">
               <SectionHeading
                 eyebrow={category.bottomEyebrow}
                 title={
@@ -302,7 +307,7 @@ export const CategoryView = ({ category }: { category: Category }) => {
                 className="mb-0"
               />
             </div>
-            <div className="col-span-12 md:col-span-5 md:text-left">
+            <div className="col-span-12 md:col-span-5 md:text-left min-w-0">
               <a href="#" className="tg-btn-outline">
                 بازدید از آزمایشگاه طراحی <ArrowUpRight className="w-4 h-4" />
               </a>

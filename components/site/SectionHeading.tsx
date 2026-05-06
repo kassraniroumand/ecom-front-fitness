@@ -22,13 +22,13 @@ export const SectionHeading = ({
 
   return (
     <div
-      className={`mb-6 md:mb-8 flex-col gap-4 text-start flex items-start justify-start ${className}`}
+      className={`mb-6 md:mb-8 flex flex-col gap-4 text-start items-start justify-start w-full min-w-0 ${className}`}
     >
       {eyebrow && (
-        <div className="flex items-center gap-3">
-          <span className="h-px w-8 bg-accent" />
+        <div className="flex flex-wrap items-center gap-3 max-w-full">
+          <span className="h-px w-8 bg-accent shrink-0" />
           <p
-            className={`text-[11px] font-bold uppercase tracking-[0.3em] ${
+            className={`min-w-0 break-words text-[11px] font-bold uppercase tracking-[0.3em] ${
               isDark ? "text-background/60" : "text-muted-foreground"
             }`}
           >
@@ -37,7 +37,7 @@ export const SectionHeading = ({
         </div>
       )}
       <h2
-        className={`text-2xl md:text-5xl leading-[0.95] max-w-3xl font-bold ${
+        className={`text-2xl md:text-5xl leading-[0.95] max-w-3xl break-words font-bold ${
           isDark ? "text-background" : "text-foreground"
         }`}
       >
@@ -45,7 +45,7 @@ export const SectionHeading = ({
       </h2>
       {description && (
         <p
-          className={`max-w-xl text-sm md:text-base leading-relaxed ${
+          className={`max-w-xl break-words text-sm md:text-base leading-relaxed ${
             isDark ? "text-background/75" : "text-muted-foreground"
           }`}
         >

@@ -27,7 +27,7 @@ const linkCols = [
 const socials = ["اینستاگرام", "تیک‌تاک", "ایکس", "فیسبوک", "لینکدین", "یوتیوب"];
 
 export const Footer = () => (
-  <footer className="bg-foreground text-background">
+  <footer className="bg-foreground text-background overflow-x-clip min-w-0">
     <div className="tg-container pt-10">
       <div className="grid md:grid-cols-3 gap-3">
         {ctas.map((c) => (
@@ -71,16 +71,16 @@ export const Footer = () => (
           </button>
         </div>
 
-        <div className="lg:col-span-5 grid grid-cols-3 gap-6">
+        <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-6 min-w-0">
           {linkCols.map((col) => (
-            <div key={col.title}>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-5">
+            <div key={col.title} className="min-w-0">
+              <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-5 break-words">
                 {col.title}
               </h4>
               <ul className="space-y-3">
                 {col.links.map((l) => (
                   <li key={l}>
-                    <a href="#" className="text-sm text-background/75 hover:text-accent transition">
+                    <a href="#" className="text-sm text-background/75 hover:text-accent transition break-words">
                       {l}
                     </a>
                   </li>
@@ -108,12 +108,12 @@ export const Footer = () => (
     </div>
 
     <div className="border-t border-background/10">
-      <div className="tg-container py-5 flex items-center justify-between text-xs font-bold uppercase tracking-[0.18em]">
-        <button className="inline-flex items-center gap-2 hover:text-accent transition">
-          <ChevronLeft className="w-3.5 h-3.5" />
-          ایده‌های خود را به اشتراک بگذارید
+      <div className="tg-container py-5 flex flex-wrap items-center justify-between gap-3 text-xs font-bold uppercase tracking-[0.18em]">
+        <button className="inline-flex items-center gap-2 min-w-0 hover:text-accent transition">
+          <ChevronLeft className="w-3.5 h-3.5 shrink-0" />
+          <span className="break-words text-start">ایده‌های خود را به اشتراک بگذارید</span>
         </button>
-        <button className="inline-flex items-center gap-2 hover:text-accent transition">
+        <button className="inline-flex items-center gap-2 shrink-0 hover:text-accent transition">
           <MapPin className="w-3.5 h-3.5" />
           ایران
         </button>
@@ -121,31 +121,31 @@ export const Footer = () => (
     </div>
 
     <div className="tg-container py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-      <div className="flex items-center gap-6">
-        <span className="bg-accent text-accent-foreground font-black tracking-tighter px-2 py-1 text-base rounded-sm inline-block">
+      <div className="flex flex-wrap items-center gap-4 md:gap-6">
+        <span className="bg-accent text-accent-foreground font-black tracking-tighter px-2 py-1 text-base rounded-sm inline-block shrink-0">
           تکنوجیم
         </span>
-        <p className="text-xs font-bold uppercase tracking-[0.2em] leading-snug">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] leading-snug min-w-0 break-words">
           بیایید حرکت کنیم
           <br />
           برای دنیایی بهتر.
         </p>
       </div>
-      <div className="flex items-center gap-4">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-background/70">
+      <div className="flex flex-wrap items-center gap-3 md:gap-4">
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-background/70 break-words">
           اپ تکنوجیم را دانلود کنید
         </span>
         <a
           href="#"
           onClick={() => posthog.capture("app_download_clicked", { store: "google_play" })}
-          className="inline-flex items-center gap-2 bg-background text-foreground rounded-md px-3 py-2 text-[10px] font-bold uppercase"
+          className="inline-flex items-center gap-2 bg-background text-foreground rounded-md px-3 py-2 text-[10px] font-bold uppercase shrink-0"
         >
           ▶ Google Play
         </a>
         <a
           href="#"
           onClick={() => posthog.capture("app_download_clicked", { store: "app_store" })}
-          className="inline-flex items-center gap-2 bg-background text-foreground rounded-md px-3 py-2 text-[10px] font-bold uppercase"
+          className="inline-flex items-center gap-2 bg-background text-foreground rounded-md px-3 py-2 text-[10px] font-bold uppercase shrink-0"
         >
            App Store
         </a>

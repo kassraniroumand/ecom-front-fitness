@@ -284,6 +284,17 @@ export function getCategory(slug: string): Category | undefined {
   return categoriesBySlug[slug];
 }
 
+export const categoryList: Category[] = categorySlugs.map(
+  (slug) => categoriesBySlug[slug],
+);
+
+export const categoryHeroImages: Record<string, string> = {
+  running: "/assets/cat-treadmills.jpg",
+  strength: "/assets/cat-freeweights.jpg",
+  bike: "/assets/cat-bikes.jpg",
+  wellness: "/assets/wellness.jpg",
+};
+
 export type ProductWithCategory = {
   product: CategoryProduct;
   category: Category;
