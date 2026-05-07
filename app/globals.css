@@ -154,6 +154,26 @@
     font-size: 14px;
     font-weight: 900;
   }
+
+  .tg-pdp-swiper {
+    padding-bottom: 2rem;
+  }
+  .tg-pdp-swiper .swiper-pagination {
+    bottom: 0;
+  }
+  .tg-pdp-swiper .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    background: hsl(var(--foreground));
+    opacity: 0.25;
+    transition: opacity 0.2s, width 0.2s;
+  }
+  .tg-pdp-swiper .swiper-pagination-bullet-active {
+    width: 22px;
+    border-radius: 999px;
+    opacity: 1;
+    background: hsl(var(--accent));
+  }
   .scrollbar-none {
     scrollbar-width: none;
   }

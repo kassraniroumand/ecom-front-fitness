@@ -3,6 +3,8 @@ import { Vazirmatn } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
+import { Header } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -44,7 +46,11 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" className={vazirmatn.variable}>
       <body className="font-sans">
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-KS2E3GRTFB"

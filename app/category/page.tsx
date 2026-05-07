@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Header } from "@/components/site/Header";
-import { Footer } from "@/components/site/Footer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,9 +14,7 @@ import { categoryHeroImages, categoryList } from "@/lib/categories";
 export default function CategoryPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
-      <Header />
-
-      <main className="flex-1 pt-28 md:pt-36 px-4 min-w-0">
+      <main className="flex-1 pt-28 md:pt-36 px-4 md:px-10 min-w-0">
         <div className="tg-container min-w-0">
           <Breadcrumb>
             <BreadcrumbList className="text-sm md:text-base font-semibold tracking-tight gap-2 md:gap-3">
@@ -115,8 +111,6 @@ export default function CategoryPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

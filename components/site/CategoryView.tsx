@@ -5,8 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import posthog from "posthog-js";
 import { ArrowUpRight, Headphones, ArrowUpDown, SlidersHorizontal } from "lucide-react";
-import { Header } from "@/components/site/Header";
-import { Footer } from "@/components/site/Footer";
 import { AdaptiveImage } from "@/components/site/AdaptiveImage";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { CategoryFiltersDrawer } from "@/components/site/CategoryFiltersDrawer";
@@ -153,9 +151,7 @@ export const CategoryView = ({ category }: { category: Category }) => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
-      <Header />
-
-      <main className="flex-1 pt-28 md:pt-36 px-4 min-w-0">
+      <main className="flex-1 pt-4 px-4 min-w-0">
         <div className="tg-container min-w-0">
           <Breadcrumb>
             <BreadcrumbList className="text-sm md:text-base font-semibold tracking-tight gap-2 md:gap-3">
@@ -274,11 +270,14 @@ export const CategoryView = ({ category }: { category: Category }) => {
                 </span>
               </button>
             </div>
-            <div className="mt-2 flex justify-center">
-              <span className="tg-card-eyebrow text-muted-foreground whitespace-nowrap">
-                {faNumber(visibleCount)} محصول
-              </span>
-            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto max-w-[1440px] px-4 pt-3 md:px-10 md:pt-4">
+          <div className="flex justify-center">
+            <span className="tg-card-eyebrow text-muted-foreground whitespace-nowrap">
+              {faNumber(visibleCount)} محصول
+            </span>
           </div>
         </div>
 
@@ -315,8 +314,6 @@ export const CategoryView = ({ category }: { category: Category }) => {
           </div>
         </section>
       </main>
-
-      <Footer />
 
       <CategorySortDrawer
         open={sortOpen}
