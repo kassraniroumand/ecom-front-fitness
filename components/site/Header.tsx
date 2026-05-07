@@ -272,7 +272,7 @@ export const Header = () => {
           {/* Center: Logo */}
           <Link href="/" className="justify-self-center flex items-center" aria-label="تکنوجیم">
             <span className="bg-accent text-accent-foreground font-black tracking-tighter px-2 py-1 text-sm md:text-base rounded-sm">
-              تکنوجیم
+              نیرومند فیتنس
             </span>
           </Link>
 
