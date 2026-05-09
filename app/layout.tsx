@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     "کشف تجهیزات بدنسازی، راهکارهای تندرستی. باشگاه‌های خانگی پریمیوم، تردمیل، دوچرخه و تجهیزات قدرتی.",
   icons: { icon: "/favicon.ico" },
   openGraph: {
-    title: "Niroumand Fitness | The Wellness Company",
+    title: "نیرومند فیتنس | سلامتی و تندرستی",
     description:
-      "Discover Niroumand Fitness fitness equipment, wellness solutions and design. Premium home gyms, treadmills, bikes and strength training.",
+        "کشف تجهیزات بدنسازی، راهکارهای تندرستی. باشگاه‌های خانگی پریمیوم، تردمیل، دوچرخه و تجهیزات قدرتی.",
     type: "website",
     images: [
       "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2993397e-f0f5-4dc3-b6e8-89886e6b5bf4/id-preview-2ab15596--5b7d2973-f3bf-4419-b58d-9727983e4d65.lovable.app-1777895545006.png",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Niroumand Fitness | The Wellness Company",
+    title: "نیرومند فیتنس | سلامتی و تندرستی",
     description:
-      "Discover Niroumand Fitness fitness equipment, wellness solutions and design. Premium home gyms, treadmills, bikes and strength training.",
+        "کشف تجهیزات بدنسازی، راهکارهای تندرستی. باشگاه‌های خانگی پریمیوم، تردمیل، دوچرخه و تجهیزات قدرتی.",
     images: [
       "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2993397e-f0f5-4dc3-b6e8-89886e6b5bf4/id-preview-2ab15596--5b7d2973-f3bf-4419-b58d-9727983e4d65.lovable.app-1777895545006.png",
     ],

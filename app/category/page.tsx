@@ -9,9 +9,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { categoryHeroImages, categoryList } from "@/lib/categories";
+import { getCategoriesContent } from "@/lib/categories-content";
 
-export default function CategoryPage() {
+export default async function CategoryPage() {
+  const { categories: categoryList, heroImages: categoryHeroImages } =
+    await getCategoriesContent();
+
   return (
     <div className="min-h-screen bg-background flex flex-col overflow-x-clip">
       <main className="flex-1 pt-28 md:pt-36 px-4 md:px-10 min-w-0">

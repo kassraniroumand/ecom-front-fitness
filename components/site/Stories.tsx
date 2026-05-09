@@ -6,15 +6,9 @@ import "swiper/css";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowRight } from "lucide-react";
 
-const stories = [
-  { tag: "طراحی", title: "تندرستی به‌عنوان لوکس‌گرایی نوین در طراحی خانه", img: "/assets/treadmill.jpg" },
-  { tag: "عملکرد", title: "ورزشکاران نخبه چگونه برای المپیک تمرین می‌کنند", img: "/assets/strength.jpg" },
-  { tag: "تندرستی", title: "علم پشت ریکاوری فعال", img: "/assets/wellness.jpg" },
-  { tag: "دوچرخه", title: "دوچرخه‌سواری داخل خانه: تجربه استودیویی در منزل", img: "/assets/bike.jpg" },
-  { tag: "نوآوری", title: "درون آزمایشگاه طراحی هوشمندترین باشگاه جهان", img: "/assets/hero-gym.jpg" },
-];
+export type Story = { tag: string; title: string; img: string };
 
-export const Stories = () => (
+export const Stories = ({ stories }: { stories: Story[] }) => (
   <section className="py-8 md:py-10 bg-secondary sm:px-4">
     <div className="tg-container">
       <SectionHeading

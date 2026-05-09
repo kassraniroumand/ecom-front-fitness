@@ -7,31 +7,31 @@ import { ChevronRight, Home, Zap, Flame, Dumbbell } from "lucide-react";
 import "swiper/css";
 import { SectionHeading } from "@/components/site/SectionHeading";
 
-type Product = {
+export type ElegantCategory = "all" | "cardio" | "strength" | "wellness";
+
+export type ElegantProduct = {
   name: string;
   price: string;
   img: string;
-  category: "all" | "cardio" | "strength" | "wellness";
+  category: ElegantCategory;
 };
 
-const products: Product[] = [
-  { name: "تکنوجیم ریفورم", price: "۷,۹۵۰ پوند", img: "/assets/prod-reform.jpg", category: "wellness" },
-  { name: "تکنوجیم مای‌ران", price: "از ۳,۶۵۰ پوند", img: "/assets/prod-treadmill.jpg", category: "cardio" },
-  { name: "تکنوجیم بنچ", price: "از ۱,۸۵۰ پوند", img: "/assets/prod-bench.jpg", category: "strength" },
-  { name: "تکنوجیم بایک", price: "۳,۹۶۰ پوند", img: "/assets/prod-bike.jpg", category: "cardio" },
-  { name: "تکنوجیم کامپکت", price: "۲,۶۷۰ پوند", img: "/assets/prod-strength.jpg", category: "strength" },
-  { name: "تکنوجیم اسکیل‌رو", price: "از ۴,۲۹۰ پوند", img: "/assets/prod-rower.jpg", category: "cardio" },
-];
+export type ElegantTab = {
+  id: ElegantCategory;
+  label: string;
+  icon: "home" | "zap" | "flame" | "dumbbell";
+};
 
-const tabs = [
-  { id: "all", label: "همه", Icon: Home },
-  { id: "cardio", label: "هوازی", Icon: Zap },
-  { id: "strength", label: "قدرتی", Icon: Dumbbell },
-  { id: "wellness", label: "تندرستی", Icon: Flame },
-] as const;
+const ICONS = { home: Home, zap: Zap, flame: Flame, dumbbell: Dumbbell } as const;
 
-export const ElegantlyDesigned = () => {
-  const [active, setActive] = useState<(typeof tabs)[number]["id"]>("all");
+export const ElegantlyDesigned = ({
+  products,
+  tabs,
+}: {
+  products: ElegantProduct[];
+  tabs: ElegantTab[];
+}) => {
+  const [active, setActive] = useState<ElegantCategory>("all");
   const filtered = active === "all" ? products : products.filter((p) => p.category === active);
 
   return (
@@ -44,20 +44,23 @@ export const ElegantlyDesigned = () => {
         >
           <div className="flex flex-wrap items-center gap-3 mt-2">
             <div className="flex flex-wrap gap-2">
-              {tabs.map(({ id, label, Icon }) => (
-                <button
-                  key={id}
-                  onClick={() => setActive(id)}
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold uppercase tracking-wider transition ${
-                    active === id
-                      ? "bg-foreground text-background border-foreground"
-                      : "bg-transparent text-foreground border-foreground/30 hover:border-foreground"
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" strokeWidth={2} />
-                  {label}
-                </button>
-              ))}
+              {tabs.map(({ id, label, icon }) => {
+                const Icon = ICONS[icon];
+                return (
+                  <button
+                    key={id}
+                    onClick={() => setActive(id)}
+                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold uppercase tracking-wider transition ${
+                      active === id
+                        ? "bg-foreground text-background border-foreground"
+                        : "bg-transparent text-foreground border-foreground/30 hover:border-foreground"
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" strokeWidth={2} />
+                    {label}
+                  </button>
+                );
+              })}
             </div>
             <a href="#" className="tg-btn-outline">
               خرید آنلاین <ChevronRight className="w-4 h-4 rotate-180" />

@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowUpRight } from "lucide-react";
 import "swiper/css";
 
-type Card = {
+export type LatestProduct = {
   badge?: string;
   title: string;
   tagline: string;
@@ -16,42 +16,7 @@ type Card = {
   category?: string;
 };
 
-const cards: Card[] = [
-  {
-    badge: "جدید",
-    title: "بایک استودیو",
-    tagline: "رکاب زدن زندگی شما.",
-    price: "از ۲,۴۹۰ پوند یا ۶۹.۱۶ پوند/ماه برای ۳۶ ماه با بهره ۴.۹٪",
-    img: "/assets/latest-bike.png",
-    category: "استقامت",
-  },
-  {
-    badge: "جدید",
-    title: "ست دمبل",
-    tagline: "قدرت، تصفیه‌شده.",
-    price: "از ۵۹۹ پوند یا ۲۴.۹۵ پوند/ماه برای ۲۴ ماه با بهره ۰٪",
-    img: "/assets/latest-dumbbells.png",
-    category: "قدرتی",
-  },
-  {
-    badge: "جدید",
-    title: "ردیاب مای‌ران",
-    tagline: "تمرین هوشمندانه‌تر.",
-    price: "از ۳۴۹ پوند یا ۸۷.۲۵ پوند/ماه برای ۴ ماه با بهره ۰٪",
-    img: "/assets/latest-watch.png",
-    category: "پوشیدنی",
-  },
-  {
-    badge: "جدید",
-    title: "کیت ریکاوری",
-    tagline: "بازیابی. تجدید. بازسازی.",
-    price: "از ۱۴۹ پوند یا ۳۷.۲۵ پوند/ماه برای ۴ ماه با بهره ۰٪",
-    img: "/assets/latest-recovery.png",
-    category: "ریکاوری",
-  },
-];
-
-const ProductCard = ({ c }: { c: Card }) => {
+const ProductCard = ({ c }: { c: LatestProduct }) => {
   const dark = !!c.dark;
   return (
     <article
@@ -142,7 +107,7 @@ const ProductCard = ({ c }: { c: Card }) => {
   );
 };
 
-export const LatestCarousel = () => (
+export const LatestCarousel = ({ cards }: { cards: LatestProduct[] }) => (
   <section className="py-8 md:py-10 bg-secondary sm:px-4">
     <div className="tg-container">
       <SectionHeading

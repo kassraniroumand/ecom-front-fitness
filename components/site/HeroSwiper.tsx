@@ -10,42 +10,16 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 
-const slides = [
-  {
-    img: "/assets/hero-gym.jpg",
-    eyebrow: "۱یونیکا®",
-    title: "حداکثر عملکرد\nدر کمترین فضا",
-    copy: "بیش از ۵۰ تمرین در یک دستگاه — تمرین کل بدن تنها در ۱.۵ متر مربع.",
-    cta: "کشف یونیکا",
-    accent: "/assets/latest-run-modified.png",
-  },
-  {
-    img: "/assets/treadmill.jpg",
-    eyebrow: "ران پرسونال",
-    title: "تردمیل،\nبازطراحی شده",
-    copy: "نمادی از طراحی و عملکرد، طراحی شده تا دویدن در خانه تجربه‌ای بی‌نظیر باشد.",
-    cta: "کشف ران",
-    accent: "/assets/latest-run-modified.png",
-  },
-  {
-    img: "/assets/bike.jpg",
-    eyebrow: "بایک پرسونال",
-    title: "با سبک رکاب بزن.",
-    copy: "کلاس‌های زنده و ضبط‌شده که تجربه استودیو را به خانه شما می‌آورد.",
-    cta: "کشف بایک",
-    accent: "/assets/latest-run-modified.png",
-  },
-  {
-    img: "/assets/strength.jpg",
-    eyebrow: "مجموعه قدرتی",
-    title: "قدرت بساز بساز بساز.",
-    copy: "تجهیزات قدرتی پریمیوم برای نتایج عالی و الهام‌بخش.",
-    cta: "کشف قدرت",
-    accent: "/assets/latest-run-modified.png",
-  },
-];
+export type HeroSlide = {
+  img: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  cta: string;
+  accent: string;
+};
 
-export const HeroSwiper = () => (
+export const HeroSwiper = ({ slides }: { slides: HeroSlide[] }) => (
   <section className="relative w-full overflow-hidden md:h-[86vh] md:min-h-[600px] md:max-h-[820px]">
     <Swiper
       modules={[Autoplay, EffectFade, Navigation]}
@@ -84,7 +58,7 @@ export const HeroSwiper = () => (
                   {s.title}
                 </h1>
                 <p className="mt-4 max-w-md text-sm text-foreground/75 leading-relaxed">
-                  {s.copy}
+                  {s.body}
                 </p>
                 <div>
                   <a

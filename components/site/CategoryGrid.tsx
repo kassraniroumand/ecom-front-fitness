@@ -8,7 +8,7 @@ import { FreeMode } from "swiper/modules";
 import "swiper/css";
 import { SectionHeading } from "@/components/site/SectionHeading";
 
-type Item = {
+export type CategoryGridItem = {
   index: string;
   title: string;
   subtitle: string;
@@ -17,14 +17,7 @@ type Item = {
   img: string;
 };
 
-const items: Item[] = [
-  { index: "۰۱", title: "دویدن", subtitle: "تردمیل‌هایی برای عملکرد بالا.", tag: "هوازی", count: "۱۲ محصول", img: "/assets/treadmill.jpg" },
-  { index: "۰۲", title: "قدرتی", subtitle: "فرم‌دهی، مجسمه‌سازی و افزایش قدرت.", tag: "قدرت", count: "۱۸ محصول", img: "/assets/strength.jpg" },
-  { index: "۰۳", title: "دوچرخه", subtitle: "دوچرخه‌های ثابت همراه با شما.", tag: "استقامت", count: "۹ محصول", img: "/assets/bike.jpg" },
-  { index: "۰۴", title: "تندرستی", subtitle: "تمرین ذهن و بدن در خانه.", tag: "ریکاوری", count: "۱۴ محصول", img: "/assets/wellness.jpg" },
-];
-
-export const CategoryGrid = () => {
+export const CategoryGrid = ({ items }: { items: CategoryGridItem[] }) => {
   const [active, setActive] = useState(0);
   const current = items[active];
 

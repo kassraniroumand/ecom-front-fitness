@@ -7,31 +7,13 @@ import { ArrowUpRight } from "lucide-react";
 import "swiper/css";
 import { SectionHeading } from "@/components/site/SectionHeading";
 
-type Item = {
+export type FeatureItem = {
   title: string;
   subtitle: string;
   img: string;
 };
 
-const items: Item[] = [
-  {
-    title: "تمرین در خانه",
-    subtitle: "یک باشگاه شخصی، در دسترس شما.",
-    img: "/assets/hero-gym.jpg",
-  },
-  {
-    title: "دویدن حرفه‌ای",
-    subtitle: "تردمیل‌هایی برای عملکرد بالا.",
-    img: "/assets/treadmill.jpg",
-  },
-  {
-    title: "رکاب‌زنی استودیویی",
-    subtitle: "با کلاس‌های زنده تمرین کنید.",
-    img: "/assets/bike.jpg",
-  }
-];
-
-const Card = ({ it }: { it: Item }) => (
+const Card = ({ it }: { it: FeatureItem }) => (
   <a
     href="#"
     className="group relative block aspect-[2/3] md:aspect-[3/4] overflow-hidden bg-card h-full"
@@ -61,7 +43,7 @@ const Card = ({ it }: { it: Item }) => (
   </a>
 );
 
-export const FeatureGrid = () => (
+export const FeatureGrid = ({ items }: { items: FeatureItem[] }) => (
   <section className="py-8 md:py-12 bg-background sm:px-4">
     <div className="tg-container">
       <SectionHeading

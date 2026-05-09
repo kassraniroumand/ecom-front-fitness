@@ -6,17 +6,9 @@ import "swiper/css";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 
-const items = [
-  { title: "تردمیل‌ها", count: 12, img: "/assets/cat-treadmills.jpg" },
-  { title: "دوچرخه‌ها", count: 9, img: "/assets/cat-bikes.jpg" },
-  { title: "نیمکت‌های وزنه", count: 7, img: "/assets/cat-benches.jpg" },
-  { title: "مولتی‌جیم", count: 5, img: "/assets/cat-multigym.jpg" },
-  { title: "اسکی فضایی", count: 6, img: "/assets/cat-cross.jpg" },
-  { title: "روئینگ", count: 4, img: "/assets/cat-rowers.jpg" },
-  { title: "وزنه آزاد", count: 18, img: "/assets/cat-freeweights.jpg" },
-];
+export type ShopCategoryItem = { title: string; count: number; img: string };
 
-const Card = ({ it }: { it: (typeof items)[number] }) => (
+const Card = ({ it }: { it: ShopCategoryItem }) => (
   <a
     href="#"
     className="group relative block aspect-[3/4] overflow-hidden rounded-none bg-card h-full shadow-[0_1px_2px_rgba(0,0,0,0.06)] hover:shadow-[0_24px_48px_-20px_rgba(0,0,0,0.35)] transition-shadow duration-500"
@@ -57,7 +49,7 @@ const Card = ({ it }: { it: (typeof items)[number] }) => (
   </a>
 );
 
-export const ShopByCategory = () => (
+export const ShopByCategory = ({ items }: { items: ShopCategoryItem[] }) => (
   <section className="py-8 px-2 sm:px-4 md:py-10 bg-background">
     <div className="tg-container">
       <SectionHeading
