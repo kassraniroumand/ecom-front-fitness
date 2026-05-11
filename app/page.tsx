@@ -8,6 +8,8 @@ import { ElegantlyDesigned } from "@/components/site/ElegantlyDesigned";
 import { AwardsCarousel } from "@/components/site/AwardsCarousel";
 import { getHomepageContent } from "@/lib/homepage-content";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const content = await getHomepageContent();
 
