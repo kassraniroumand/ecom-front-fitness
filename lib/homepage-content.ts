@@ -19,12 +19,20 @@ export type HomepageContent = {
   stories: Story[];
 };
 
+type PageResponse = {
+  id: number;
+  title: string;
+  content: HomepageContent;
+  seo?: unknown;
+};
+
 export async function getHomepageContent(): Promise<HomepageContent> {
-  const res = await fetch(apiUrl("/homepage"), {
+  const res = await fetch(apiUrl("/pages/1"), {
     next: { revalidate: 60 },
   });
   if (!res.ok) {
     throw new Error(`Content API returned ${res.status}`);
   }
-  return (await res.json()) as HomepageContent;
+  const page = (await res.json()) as PageResponse;
+  return page.content;
 }
